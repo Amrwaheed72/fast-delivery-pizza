@@ -7,6 +7,7 @@ import {
   useNavigation,
 } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
+import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -53,13 +54,25 @@ function CreateOrder() {
       <Form method="POST" action="/order/new">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input
+            placeholder="Enter Your Name"
+            className="input"
+            type="text"
+            name="customer"
+            required
+          />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input
+              className="input"
+              placeholder="Enter Your P.N"
+              type="tel"
+              name="phone"
+              required
+            />
           </div>
           {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
@@ -67,12 +80,19 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input
+              placeholder="Enter Your Address"
+              className="input"
+              type="text"
+              name="address"
+              required
+            />
           </div>
         </div>
 
         <div>
           <input
+            className="h-6 w-6 accent-orange-800 focus:outline-none focus:ring focus:ring-orange-800 focus:ring-offset-2"
             type="checkbox"
             name="priority"
             id="priority"
@@ -84,9 +104,7 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
-            {isSubmitting ? `Placing order....` : `Order now`}
-          </button>
+          <Button>{isSubmitting ? `Placing order....` : `Order now`}</Button>
         </div>
       </Form>
     </div>
