@@ -1,12 +1,14 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Home from './ui/Home'
-import Error from './ui/Error'
-import Menu, { loader as menuloader } from './features/menu/Menu'
-import Cart from './features/cart/Cart'
-import User from './features/user/CreateUser'
-import CreateOrder from './features/order/CreateOrder'
-import Order, { loader as orderLoader } from './features/order/Order'
-import AppLayout from "./ui/AppLayout"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './ui/Home';
+import Error from './ui/Error';
+import Menu, { loader as menuloader } from './features/menu/Menu';
+import Cart from './features/cart/Cart';
+import User from './features/user/CreateUser';
+import CreateOrder, {
+  action as createOrderActoon,
+} from './features/order/CreateOrder';
+import Order, { loader as orderLoader } from './features/order/Order';
+import AppLayout from './ui/AppLayout';
 const route = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -14,7 +16,7 @@ const route = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <Home />,
       },
       {
         path: '/menu',
@@ -24,15 +26,16 @@ const route = createBrowserRouter([
       },
       {
         path: '/cart',
-        element: <Cart />
+        element: <Cart />,
       },
       {
         path: '/user',
-        element: <User />
+        element: <User />,
       },
       {
         path: '/order/new',
-        element: <CreateOrder />
+        element: <CreateOrder />,
+        action: createOrderActoon,
       },
       {
         path: '/order/:orderId',
@@ -40,13 +43,11 @@ const route = createBrowserRouter([
         loader: orderLoader,
         errorElement: <Error />,
       },
-    ]
-  }
-])
+    ],
+  },
+]);
 function App() {
-  return (
-    <RouterProvider router={route} ></RouterProvider>
-  )
+  return <RouterProvider router={route}></RouterProvider>;
 }
 
-export default App
+export default App;
