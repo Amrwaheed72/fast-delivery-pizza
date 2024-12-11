@@ -1,8 +1,39 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
+import { addItem } from '../cart/cartSlice';
+import { getCurrentQuantityById } from '../cart/cartSlice';
+import { useState } from 'react';
+import Message from '../../ui/Message';
+import DeleteButton from '../../ui/DeleteButton';
+
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  const [messageVisible, setMessageVisible] = useState(false);
+  const dispatch = useDispatch();
 
+  const currentQuentity = useSelector(getCurrentQuantityById(id));
+  const isInCart = currentQuentity > 0;
+  function handleAddToCart() {
+    setMessageVisible(true);
+    const newItem = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+    dispatch(addItem(newItem));
+    setTimeout(() => {
+      setMessageVisible(false);
+    }, 3000);
+  }
+  function handleDeleteMessage() {
+    setMessageVisible(true);
+    setTimeout(() => {
+      setMessageVisible(false);
+    }, 3000);
+  }
   return (
     <li className="flex gap-4 py-3">
       <img
@@ -23,7 +54,21 @@ function MenuItem({ pizza }) {
               Sold out
             </p>
           )}
-          <Button type="small">Add to cart</Button>
+          {isInCart && (
+            <DeleteButton onDelete={handleDeleteMessage} pizzaId={id} />
+          )}
+          {!soldOut && !isInCart && (
+            <Button onClick={handleAddToCart} type="small">
+              Add to cart
+            </Button>
+          )}
+          {messageVisible && (
+            <Message>
+              {isInCart
+                ? 'Added to cart successfully!'
+                : 'Deleted from cart successfully!'}
+            </Message>
+          )}
         </div>
       </div>
     </li>

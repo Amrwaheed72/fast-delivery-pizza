@@ -6,14 +6,16 @@ function SearchOrder() {
   const navigate = useNavigate();
 
   function handleSubmit(e) {
-    e.preventDefault();
-    if (!query) return;
-    navigate(`/order/${query}`);
-    setQuery('');
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!query) return;
+      navigate(`/order/${query}`);
+      setQuery('');
+    }
   }
   return (
     <input
-      onSubmit={handleSubmit}
+      onKeyDown={handleSubmit}
       placeholder="Search order #"
       value={query}
       onChange={(e) => setQuery(e.target.value)}

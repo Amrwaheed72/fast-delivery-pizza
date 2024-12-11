@@ -1,11 +1,4 @@
-import { useState } from 'react';
-import {
-  Form,
-  redirect,
-  useActionData,
-  useNavigate,
-  useNavigation,
-} from 'react-router-dom';
+import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
 import Button from '../../ui/Button';
 
@@ -73,9 +66,11 @@ function CreateOrder() {
               name="phone"
               required
             />
-          {formErrors?.phone && (
-            <p className="mt-2 text-xs text-red-500 font-bold p-2 rounded-full">{formErrors.phone}</p>
-          )}
+            {formErrors?.phone && (
+              <p className="mt-2 rounded-full p-2 text-xs font-bold text-red-500">
+                {formErrors.phone}
+              </p>
+            )}
           </div>
         </div>
 
@@ -109,7 +104,8 @@ function CreateOrder() {
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button type="primary">
-            {isSubmitting ? `Placing order....` : `Order now`}
+            {isSubmitting ? 'Placin order.... ' : 'Order now'}
+            {/* {isSubmitting ? `Placing order....` : `Order now`} */}
           </Button>
         </div>
       </Form>

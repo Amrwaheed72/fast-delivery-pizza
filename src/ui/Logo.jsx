@@ -16,7 +16,7 @@ function Logo() {
   return (
     <div>
       <Tilt options={defaultOptions}>
-        <img className="h-20 rounded-full" src="Amr.png" alt='logo'></img>
+        <img className="h-20 rounded-full" src="Amr.png" alt="logo"></img>
       </Tilt>
     </div>
   );
