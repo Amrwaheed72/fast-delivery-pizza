@@ -6,6 +6,7 @@ import { getCurrentQuantityById } from '../cart/cartSlice';
 import { useState } from 'react';
 import Message from '../../ui/Message';
 import DeleteButton from '../../ui/DeleteButton';
+import UpdateItemQuantity from '../../ui/UpdateItemQuantity';
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
@@ -55,7 +56,10 @@ function MenuItem({ pizza }) {
             </p>
           )}
           {isInCart && (
-            <DeleteButton onDelete={handleDeleteMessage} pizzaId={id} />
+            <div className='flex items-center gap-3 sm:gap-8'>
+              <UpdateItemQuantity quantity={currentQuentity} pizzaId={id} />
+              <DeleteButton onDelete={handleDeleteMessage} pizzaId={id} />
+            </div>
           )}
           {!soldOut && !isInCart && (
             <Button onClick={handleAddToCart} type="small">

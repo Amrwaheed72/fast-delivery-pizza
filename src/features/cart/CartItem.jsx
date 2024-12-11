@@ -2,6 +2,7 @@ import { formatCurrency } from '../../utils/helpers';
 import DeleteButton from '../../ui/DeleteButton';
 import { useState } from 'react';
 import Message from '../../ui/Message';
+import UpdateItemQuantity from '../../ui/UpdateItemQuantity';
 
 function CartItem({ item }) {
   const [messageVisible, setMessageVisible] = useState(false);
@@ -20,6 +21,7 @@ function CartItem({ item }) {
       </p>
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
+        <UpdateItemQuantity pizzaId={pizzaId}  quantity={quantity} />
         <DeleteButton onDelete={handleDeleteMessage} pizzaId={pizzaId} />
       </div>
       {messageVisible && <Message>Deleted from cart successfully!</Message>}
